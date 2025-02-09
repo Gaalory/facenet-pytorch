@@ -118,7 +118,7 @@ img_probs = resnet(img_cropped.unsqueeze(0))
 
 ## 预训练模型
 
-请参阅：[models/inception_resnet_v1.py](models/inception_resnet_v1.py)
+请参阅：[models/inception_resnet_v1.py](src/models/inception_resnet_v1.py)
 
 以下模型已移植到 pytorch（包含下载 pytorch state_dict 的链接）：
 
@@ -233,7 +233,7 @@ docker run --rm -p 8888:8888
 
 ## Tensorflow 到 Pytorch 的参数转换
 
-请参阅：[models/utils/tensorflow2pytorch.py](models/tensorflow2pytorch.py)
+请参阅：[models/utils/tensorflow2pytorch.py](src/models/tensorflow2pytorch.py)
 
 请注意，使用此存储库中的模型不需要此功能，该功能仅依赖于pytorch保存的 `state_dict`。
 
