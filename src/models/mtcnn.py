@@ -35,7 +35,7 @@ class PNet(nn.Module):
 		self.training = False
 
 		if pretrained:
-			state_dict_path = os.path.join('data/pnet.pt')
+			state_dict_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'../weights/mtcnn/pnet.pt'))
 			state_dict = torch.load(state_dict_path, weights_only=True)
 			self.load_state_dict(state_dict)
 
@@ -81,7 +81,7 @@ class RNet(nn.Module):
 		self.training = False
 
 		if pretrained:
-			state_dict_path = os.path.join('data/rnet.pt')
+			state_dict_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'../weights/mtcnn/rnet.pt'))
 			state_dict = torch.load(state_dict_path, weights_only=True)
 			self.load_state_dict(state_dict)
 
@@ -135,7 +135,7 @@ class ONet(nn.Module):
 		self.training = False
 
 		if pretrained:
-			state_dict_path = os.path.join('data/onet.pt')
+			state_dict_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'../weights/mtcnn/onet.pt'))
 			state_dict = torch.load(state_dict_path, weights_only=True)
 			self.load_state_dict(state_dict)
 
@@ -295,20 +295,6 @@ class MTCNN(nn.Module):
 		        list of detection probabilities. If `img` is a list of
 		        images, the item(s) returned have an extra dimension (batch)
 		        as the first dimension.
-
-		Example:
-		>>> from facenet_pytorch import (
-		...     MTCNN,
-		... )
-		>>> mtcnn = MTCNN()
-		>>> (
-		...     face_tensor,
-		...     prob,
-		... ) = mtcnn(
-		...     img,
-		...     save_path='face.png',
-		...     return_prob=True,
-		... )
 		"""
 
 		# Detect faces
@@ -366,70 +352,6 @@ class MTCNN(nn.Module):
 		        have an extra dimension (batch) as the first dimension.
 		        Optionally, a third item, the facial landmarks, are returned
 		        if `landmarks=True`.
-
-		Example:
-		>>> from PIL import (
-		...     Image,
-		...     ImageDraw,
-		... )
-		>>> from facenet_pytorch import (
-		...     MTCNN,
-		...     extract_face,
-		... )
-		>>> mtcnn = MTCNN(
-		...     keep_all=True
-		... )
-		>>> (
-		...     boxes,
-		...     probs,
-		...     points,
-		... ) = mtcnn.detect(
-		...     img,
-		...     landmarks=True,
-		... )
-		>>> # Draw boxes and save faces
-		>>> img_draw = img.copy()
-		>>> draw = ImageDraw.Draw(
-		...     img_draw
-		... )
-		>>> for (
-		...     i,
-		...     (
-		...         box,
-		...         point,
-		...     ),
-		... ) in enumerate(
-		...     zip(
-		...         boxes,
-		...         points,
-		...     )
-		... ):
-		...     draw.rectangle(
-		...         box.tolist(),
-		...         width=5,
-		...     )
-		...     for p in point:
-		...         draw.rectangle(
-		...             (
-		...                 p
-		...                 - 10
-		...             ).tolist()
-		...             + (
-		...                 p
-		...                 + 10
-		...             ).tolist(),
-		...             width=10,
-		...         )
-		...     extract_face(
-		...         img,
-		...         box,
-		...         save_path='detected_face_{}.png'.format(
-		...             i
-		...         ),
-		...     )
-		>>> img_draw.save(
-		...     'annotated_faces.png'
-		... )
 		"""
 
 		with torch.no_grad():
