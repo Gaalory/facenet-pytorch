@@ -13,9 +13,9 @@ class Logger:
 		self.length = length
 		self.calculate_mean = calculate_mean
 		if self.calculate_mean:
-			self.fn: Callable[[torch.Tensor, int], float] = (
-				lambda x, i: (x / (i + 1)).item()
-			)
+			self.fn: Callable[[torch.Tensor, int], float] = lambda x, i: (
+				x / (i + 1)
+			).item()
 		else:
 			self.fn = lambda x, i: x.item()
 

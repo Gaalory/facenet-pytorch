@@ -5,6 +5,7 @@ from fixture import (
 	dataset_images,
 	embedding_resnet_model,
 	mtcnn_model,
+	pretrained_embedding_resnet_model,
 	setup_and_teardown,
 )
 
@@ -13,6 +14,7 @@ from models.inception_resnet_v1 import (
 	Block8,
 	Block17,
 	Block35,
+	InceptionResnetV1,
 	Mixed_6a,
 	Mixed_7a,
 )
@@ -78,3 +80,12 @@ def test_resnet_classification(
 		prob = classify_resnet_model(x)
 		assert prob is not None
 		assert prob.shape == torch.Size([5, 5])
+
+
+def test_resnet_load_weights(
+	setup_and_teardown, pretrained_embedding_resnet_model, aligned_faces
+):
+	for x, _y in aligned_faces:
+		prob = pretrained_embedding_resnet_model(x)
+		assert prob is not None
+		assert prob.shape == torch.Size([5, 7451])

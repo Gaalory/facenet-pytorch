@@ -40,6 +40,13 @@ def classify_resnet_model(request):
 		return InceptionResnetV2(classify=True, num_classes=5).eval()
 
 
+@pytest.fixture(params=['casia-webface', 'vggface2'])
+def pretrained_embedding_resnet_model(request):
+	return InceptionResnetV1(
+		classify=True, num_classes=7451, pretrained=request.param
+	).eval()
+
+
 @pytest.fixture(params=[1, 2])
 def embedding_resnet_model(request):
 	if request.param == 1:

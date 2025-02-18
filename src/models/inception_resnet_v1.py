@@ -4,8 +4,6 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
-from .utils.download import download_url_to_file
-
 
 class BasicConv2d(nn.Module):
 	def __init__(
@@ -340,7 +338,7 @@ class InceptionResnetV1(nn.Module):
 
 		cached_file = os.path.join(model_dir, os.path.basename(path))
 		if not os.path.exists(cached_file):
-			download_url_to_file(path, cached_file)
+			torch.hub.download_url_to_file(path, cached_file)
 
 		state_dict = torch.load(cached_file, weights_only=True)
 		self.load_state_dict(state_dict)
