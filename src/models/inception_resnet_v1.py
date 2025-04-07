@@ -217,12 +217,12 @@ class InceptionResnetV1(nn.Module):
 		self.pretrained = pretrained
 		self.classify = classify
 		self.num_classes = num_classes
-
-		if pretrained == 'vggface2':
+		tmp_classes = 0
+		if self.pretrained == 'vggface2':
 			tmp_classes = 8631
-		elif pretrained == 'casia-webface':
+		elif self.pretrained == 'casia-webface':
 			tmp_classes = 10575
-		elif pretrained is None and self.classify and self.num_classes is None:
+		elif self.pretrained is None and self.classify and self.num_classes is None:
 			raise Exception(
 				'If "pretrained" is not specified and "classify" is True,'
 				+ ' "num_classes" must be specified'

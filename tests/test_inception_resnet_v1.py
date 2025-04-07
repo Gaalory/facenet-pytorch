@@ -1,4 +1,6 @@
+import pytest
 import torch
+
 from fixture import (
 	aligned_faces,
 	classify_resnet_model,
@@ -19,6 +21,15 @@ from models.inception_resnet_v1 import (
 	Mixed_7a,
 )
 
+def test_errors():
+	with pytest.raises(Exception):
+		model = InceptionResnetV1(pretrained= None,classify = True, num_classes = None )
+	with pytest.raises(ValueError):
+		model = InceptionResnetV1(pretrained="gachimuchi")
+
+def test_device():
+	model = InceptionResnetV1(device="cpu")
+	assert model.device == "cpu"
 
 def test_basic_conv2d():
 	ttest = torch.rand((7, 3, 160, 160))
