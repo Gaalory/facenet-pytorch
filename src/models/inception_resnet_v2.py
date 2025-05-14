@@ -314,6 +314,11 @@ class InceptionResnetV2(nn.Module):
 			self.logits = nn.Linear(1536, self.num_classes).to(self.device)
 
 
+	def unfreeze_last_layers(self):
+		for p in self.parameters():
+			p.requires_grad=False
+		self.last_bn.requires_grad = True
+		self.logits.requires_grad = True
 	def forward(self, x: torch.Tensor) -> torch.Tensor:
 		"""Calculate embeddings or logits given a batch of input image tensors.
 

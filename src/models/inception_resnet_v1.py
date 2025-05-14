@@ -316,7 +316,11 @@ class InceptionResnetV1(nn.Module):
 		x = self.last_bn(x)
 		x = self.logits(x) if self.classify else F.normalize(x, p=2, dim=1)
 		return x
-
+	def unfreeze_last_layers(self):
+		for p in self.parameters():
+			p.requires_grad=False
+		self.last_bn.requires_grad = True
+		self.logits.requires_grad = True
 	def load_weights(self, name: str) -> None:
 		"""Download pretrained state_dict and load into model.
 
