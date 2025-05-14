@@ -100,3 +100,16 @@ def test_resnet_load_weights(
 		prob = pretrained_embedding_resnet_model(x)
 		assert prob is not None
 		assert prob.shape == torch.Size([5, 7451])
+
+
+
+	ttest = torch.rand((7, 3, 160, 160))
+	m = InceptionResnetV1(num_classes=5,classify=True,device='cpu')
+	ret1 = m(ttest)
+	m.change_num_classes(new_num_classes=3)
+	ret2 = m(ttest)
+	m.change_num_classes(10)
+	ret3=m(ttest)
+	assert list(ret1.size()) == [7, 5]
+	assert list(ret2.size()) == [7, 3]
+	assert list(ret3.size()) == [7, 10]

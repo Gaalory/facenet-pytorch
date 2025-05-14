@@ -71,3 +71,16 @@ def test_model():
 
 	assert list(ret.size()) == [7, 1536]
 	pass
+
+
+def test_model_change_size():
+	ttest = torch.rand((7, 3, 299, 299))
+	m = InceptionResnetV2(num_classes=5,classify=True,device='cpu')
+	ret1 = m(ttest)
+	m.change_num_classes(new_num_classes=3)
+	ret2 = m(ttest)
+	m.change_num_classes(10)
+	ret3=m(ttest)
+	assert list(ret1.size()) == [7, 5]
+	assert list(ret2.size()) == [7, 3]
+	assert list(ret3.size()) == [7, 10]

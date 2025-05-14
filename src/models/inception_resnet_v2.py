@@ -305,6 +305,14 @@ class InceptionResnetV2(nn.Module):
 		if device is not None:
 			self.device = device
 			self.to(device)
+	def change_num_classes(self,new_num_classes:int):
+		if new_num_classes<=0 or new_num_classes== self.num_classes:
+			return
+
+		if self.classify:
+			self.num_classes = new_num_classes
+			self.logits = nn.Linear(1536, self.num_classes).to(self.device)
+
 
 	def forward(self, x: torch.Tensor) -> torch.Tensor:
 		"""Calculate embeddings or logits given a batch of input image tensors.
