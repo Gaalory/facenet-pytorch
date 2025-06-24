@@ -222,7 +222,11 @@ class InceptionResnetV1(nn.Module):
 			tmp_classes = 8631
 		elif self.pretrained == 'casia-webface':
 			tmp_classes = 10575
-		elif self.pretrained is None and self.classify and self.num_classes is None:
+		elif (
+			self.pretrained is None
+			and self.classify
+			and self.num_classes is None
+		):
 			raise Exception(
 				'If "pretrained" is not specified and "classify" is True,'
 				+ ' "num_classes" must be specified'
@@ -281,13 +285,15 @@ class InceptionResnetV1(nn.Module):
 		if device is not None:
 			self.device = device
 			self.to(device)
-	def change_num_classes(self,new_num_classes:int):
-		if new_num_classes<=0 or new_num_classes== self.num_classes:
+
+	def change_num_classes(self, new_num_classes: int):
+		if new_num_classes <= 0 or new_num_classes == self.num_classes:
 			return
 
 		if self.classify:
 			self.num_classes = new_num_classes
-			self.logits = nn.Linear(1536, self.num_classes).to(self.device)
+			self.logits = nn.Linear(512, self.num_classes).to(self.device)
+
 	def forward(self, x: torch.Tensor) -> torch.Tensor:
 		"""Calculate embeddings or logits given a batch of input image tensors.
 
@@ -316,11 +322,13 @@ class InceptionResnetV1(nn.Module):
 		x = self.last_bn(x)
 		x = self.logits(x) if self.classify else F.normalize(x, p=2, dim=1)
 		return x
+
 	def unfreeze_last_layers(self):
 		for p in self.parameters():
-			p.requires_grad=False
+			p.requires_grad = False
 		self.last_bn.requires_grad = True
 		self.logits.requires_grad = True
+
 	def load_weights(self, name: str) -> None:
 		"""Download pretrained state_dict and load into model.
 

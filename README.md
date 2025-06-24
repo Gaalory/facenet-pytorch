@@ -78,7 +78,7 @@ See `help(MTCNN)` and `help(InceptionResnetV1)` for usage and implementation det
 
 ## Pretrained models
 
-See: [models/inception_resnet_v1.py](src/models/inception_resnet_v1.py)
+See: [models/inception_resnet_v1.py](src/facenet/models/inception_resnet_v1.py)
 
 The following models have been ported to pytorch (with links to download pytorch state_dict's):
 
@@ -193,7 +193,7 @@ Alternatively, the code can be installed as a package using pip:
 
 ## Conversion of parameters from Tensorflow to Pytorch
 
-See: [models/utils/tensorflow2pytorch.py](src/models/tensorflow2pytorch.py)
+See: [models/utils/tensorflow2pytorch.py](src/facenet/models/tensorflow2pytorch.py)
 
 Note that this functionality is not needed to use the models in this repo, which depend only on the saved pytorch `state_dict`'s. 
 

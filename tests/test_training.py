@@ -2,13 +2,13 @@ import torch
 from torch import optim
 from torch.optim.lr_scheduler import MultiStepLR
 
-from models.inception_resnet_v2 import InceptionResnetV2
-from models.utils import training
-from tests.fixture import (
-	aligned_faces,
-	classify_resnet_model,
+from facenet.models.inception_resnet_v2 import InceptionResnetV2
+from facenet.models.utils import training
+from fixture import (
 	dataset_images,
 	mtcnn_model,
+	aligned_faces,
+	classify_resnet_model,
 	setup_and_teardown,
 )
 

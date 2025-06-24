@@ -1,16 +1,16 @@
 [tool.poetry]
-name = "facenet-pytorch"
+name = "facenet"
 version = "0.1.0"
 description = ""
 authors = ["John Doe <john@doe>"]
 readme = "README.md"
-packages = [{include = "*",from="src"}]
+packages = [{include = "facenet",from="src"}]
 
 
 [tool.poetry.dependencies]
 python = "^3.12"
-torch = {version = "^2.6.0", source="pytorch"}
-torchvision = {version="*",source="pytorch"}
+torch = {source="pytorch"}
+torchvision = {source="pytorch"}
 pillow = "*"
 opencv-python = "*"
 scipy = "*"

@@ -9,9 +9,9 @@ from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 from torchvision.datasets import ImageFolder
 
-from models.inception_resnet_v1 import InceptionResnetV1
-from models.inception_resnet_v2 import InceptionResnetV2
-from models.mtcnn import MTCNN, fixed_image_standardization
+from facenet.models.inception_resnet_v1 import InceptionResnetV1
+from facenet.models.inception_resnet_v2 import InceptionResnetV2
+from facenet.models.mtcnn import MTCNN, fixed_image_standardization
 
 tmp_path: str = pjoin('tests', 'tmp')
 data_path: str = 'data'
@@ -47,15 +47,7 @@ def pretrained_embedding_resnet_model(request):
 	).eval()
 
 
-@pytest.fixture(params=[1, 2])
-def embedding_resnet_model(request):
-	if request.param == 1:
-		return InceptionResnetV1(classify=False).eval()
-	else:
-		return InceptionResnetV2(classify=False).eval()
-
-
-@pytest.fixture
+@pytest.fixture()
 def dataset_images():
 	trans = transforms.Compose([transforms.Resize(512)])
 
@@ -66,8 +58,16 @@ def dataset_images():
 	return dataset
 
 
-@pytest.fixture
-def aligned_faces(dataset_images, mtcnn_model):
+@pytest.fixture(params=[1, 2])
+def embedding_resnet_model(request):
+	if request.param == 1:
+		return InceptionResnetV1(classify=False).eval()
+	else:
+		return InceptionResnetV2(classify=False).eval()
+
+
+@pytest.fixture()
+def aligned_faces(mtcnn_model, dataset_images):
 	for img, idx in dataset_images:
 		name = dataset_images.idx_to_class[idx]
 		mtcnn_model(

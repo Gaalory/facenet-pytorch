@@ -3,15 +3,15 @@ import torch
 
 from fixture import (
 	aligned_faces,
-	classify_resnet_model,
-	dataset_images,
-	embedding_resnet_model,
 	mtcnn_model,
+	dataset_images,
+	classify_resnet_model,
+	embedding_resnet_model,
 	pretrained_embedding_resnet_model,
 	setup_and_teardown,
 )
 
-from models.inception_resnet_v1 import (
+from facenet.models.inception_resnet_v1 import (
 	BasicConv2d,
 	Block8,
 	Block17,
@@ -21,15 +21,20 @@ from models.inception_resnet_v1 import (
 	Mixed_7a,
 )
 
+
 def test_errors():
 	with pytest.raises(Exception):
-		model = InceptionResnetV1(pretrained= None,classify = True, num_classes = None )
+		model = InceptionResnetV1(
+			pretrained=None, classify=True, num_classes=None
+		)
 	with pytest.raises(ValueError):
-		model = InceptionResnetV1(pretrained="gachimuchi")
+		model = InceptionResnetV1(pretrained='gachimuchi')
+
 
 def test_device():
-	model = InceptionResnetV1(device="cpu")
-	assert model.device == "cpu"
+	model = InceptionResnetV1(device='cpu')
+	assert model.device == 'cpu'
+
 
 def test_basic_conv2d():
 	ttest = torch.rand((7, 3, 160, 160))
@@ -101,15 +106,13 @@ def test_resnet_load_weights(
 		assert prob is not None
 		assert prob.shape == torch.Size([5, 7451])
 
-
-
 	ttest = torch.rand((7, 3, 160, 160))
-	m = InceptionResnetV1(num_classes=5,classify=True,device='cpu')
+	m = InceptionResnetV1(num_classes=5, classify=True, device='cpu')
 	ret1 = m(ttest)
 	m.change_num_classes(new_num_classes=3)
 	ret2 = m(ttest)
 	m.change_num_classes(10)
-	ret3=m(ttest)
+	ret3 = m(ttest)
 	assert list(ret1.size()) == [7, 5]
 	assert list(ret2.size()) == [7, 3]
 	assert list(ret3.size()) == [7, 10]
