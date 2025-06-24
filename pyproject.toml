@@ -4,38 +4,33 @@ version = "0.1.0"
 description = ""
 authors = ["John Doe <john@doe>"]
 readme = "README.md"
-packages = [{include = "src"}]
+packages = [{include = "*",from="src"}]
 
 
 [tool.poetry.dependencies]
 python = "^3.12"
-tqdm = "^4.67.1"
 torch = {version = "^2.6.0", source="pytorch"}
-torchvision = {version="^0.21.0",source="pytorch"}
-torchaudio = {version = "^2.6.0",source="pytorch"}
+torchvision = {version="*",source="pytorch"}
+pillow = "*"
+opencv-python = "*"
+scipy = "*"
+tqdm = "*"
+pandas = "*"
+jupyter = "*"
+requests = "*"
 
 
 [tool.poetry.group.dev.dependencies]
-pillow = "^11.1.0"
-opencv-python = "^4.11.0.86"
-scipy = "^1.15.1"
-tqdm = "^4.67.1"
-pandas = "^2.2.3"
-jupyter = "^1.1.1"
-requests = "^2.32.3"
-coverage = "^7.6.10"
-pytest = "^8.3.4"
-black = "^25.1.0"
-ruff = "^0.9.3"
-mypy = "^1.15.0"
-torch = {source="pytorch"}
-torchvision = {source="pytorch"}
-torchaudio = {source="pytorch"}
+coverage = "*"
+pytest = "*"
+black = "*"
+ruff = "*"
+mypy = "*"
 
 
 [[tool.poetry.source]]
 name = "pytorch"
-url = "https://download.pytorch.org/whl/cu124"
+url = "https://download.pytorch.org/whl/cu126"
 priority = "explicit"
 
 [build-system]
