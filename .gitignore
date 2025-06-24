@@ -88,7 +88,7 @@ site/
 *.code-workspace
 
 # PyCharm
-.idea/
+*.idea/
 *.iml
 
 # Virtual environments
