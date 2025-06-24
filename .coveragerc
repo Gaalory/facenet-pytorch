@@ -2,4 +2,4 @@
 source = src
 omit =
     tests/*
-    .venvv/*
+    .venv/*

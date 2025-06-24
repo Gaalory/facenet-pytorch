@@ -2,12 +2,13 @@ from os.path import join as pjoin
 
 import numpy as np
 import torch
-from fixture import data_path, dataset_images, mtcnn_model
+from fixture import dataset_images, mtcnn_model, current_dir
 from PIL import Image
 
 
 def test_mtcnn_multi_face(mtcnn_model):
-	img = Image.open(pjoin(data_path, 'multiface.jpg'))
+	cur_d = current_dir()
+	img = Image.open(pjoin(cur_d,"data", 'multiface.jpg'))
 	boxes, probs = mtcnn_model.detect(img)
 	assert boxes.shape == (6, 4)
 
@@ -19,9 +20,10 @@ def test_mtcnn_no_face(mtcnn_model):
 
 
 def test_mtcnn_multi_image(mtcnn_model):
+	cur_d = current_dir()
 	img = [
-		Image.open(pjoin(data_path, 'multiface.jpg')),
-		Image.open(pjoin(data_path, 'multiface.jpg')),
+		Image.open(pjoin(cur_d,"data", 'multiface.jpg')),
+		Image.open(pjoin(cur_d,"data", 'multiface.jpg')),
 	]
 	batch_boxes, batch_probs = mtcnn_model.detect(img)
 	assert batch_boxes.shape == (2, 6, 4)
@@ -48,7 +50,8 @@ def test_mtcnn_batch_and_types(mtcnn_model, dataset_images):
 
 
 def test_mtcnn_selection_methods(mtcnn_model):
-	img = Image.open(pjoin(data_path, 'multiface.jpg'))
+	cur_d = current_dir()
+	img = Image.open(pjoin(cur_d,'data', 'multiface.jpg'))
 	mtcnn_model.selection_method = 'probability'
 	assert mtcnn_model.detect(img) is not None
 
