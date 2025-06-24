@@ -4,7 +4,7 @@ __pycache__
 runs
 build
 dist
-.idea
+.idea/
 poetry.lock
 *.egg-info
 *tmp*
