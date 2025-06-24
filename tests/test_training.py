@@ -4,9 +4,10 @@ from torch.optim.lr_scheduler import MultiStepLR
 
 from facenet.models.inception_resnet_v2 import InceptionResnetV2
 from facenet.models.utils import training
-from fixture import (
-	dataset_images,
+from tests.fixture import (
 	mtcnn_model,
+	dataset_images,
+
 	aligned_faces,
 	classify_resnet_model,
 	setup_and_teardown,

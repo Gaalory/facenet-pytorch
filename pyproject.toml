@@ -21,6 +21,7 @@ requests = "*"
 
 
 [tool.poetry.group.dev.dependencies]
+fixture = {path ="tests", develop=true}
 coverage = "*"
 pytest = "*"
 black = "*"

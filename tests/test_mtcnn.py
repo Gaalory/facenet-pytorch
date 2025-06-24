@@ -2,7 +2,7 @@ from os.path import join as pjoin
 
 import numpy as np
 import torch
-from fixture import dataset_images, mtcnn_model, current_dir
+from tests.fixture import dataset_images, mtcnn_model, current_dir
 from PIL import Image
 
 

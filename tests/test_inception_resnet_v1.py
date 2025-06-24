@@ -1,10 +1,10 @@
 import pytest
 import torch
 
-from fixture import (
-	aligned_faces,
+from tests.fixture import (
 	mtcnn_model,
 	dataset_images,
+	aligned_faces,
 	classify_resnet_model,
 	embedding_resnet_model,
 	pretrained_embedding_resnet_model,
