@@ -95,8 +95,6 @@ site/
 venv/
 ENV/
 
-# MacOS
-.DS_Store
 #old
 __pycache__
 .vscode
@@ -104,11 +102,8 @@ __pycache__
 runs
 build
 dist
-.idea/
-poetry.lock
 *.egg-info
 *tmp*
-.coverage
 htmlcov
 test.py
 .cache
